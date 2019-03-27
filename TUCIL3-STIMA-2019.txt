@@ -1,8 +1,16 @@
 A*
-Iterasi hingga mencapai pintu keluar
-	cek masing2 cabang dari sebuah simpul
-	masukkan cost yg sudah dihitung ke Priority Queue
-	akses ke elemen dengan top
+Iterasi
+	jika belum mencapai tujuan 
+		cek masing2 cabang dari sebuah simpul
+		masukkan cost yg sudah dihitung ke Priority Queue
+		akses ke elemen dengan top
+	jika sudah mencapai tujuan
+		cek simpul di queue yang cost <= cost yg sudah mencapai tujuan
 	
 	
 *Priority Queue merupakan daftar simpul hidup, diurut membesar berdasarkan cost
+
+1. masukkan posisi pertama ke queue
+2. Iterasi selama belum mencapai tujuan
+	a. masukkan simpul tetangga dari currentPos ke Queue
+	b. 

@@ -6,7 +6,6 @@ class PriorityQueue:
 		#b = posisi Y
 		#c = cost
 		self.data = []
-		self.size = 0
 	#SISIP
 	def Insert(self, L):
 		i = 0
@@ -17,7 +16,9 @@ class PriorityQueue:
 			self.data.insert(i, L)
 		else:
 			self.data.append(L)
-		self.size += 1
+	def removeFirst(self):
+		self.data.pop()
+
 
 	#PRINT
 	def Print(self):
@@ -26,9 +27,9 @@ class PriorityQueue:
 	
 	#PREDIKAT
 	def Count(self):
-		return self.size
+		return self.data.count()
 	def IsEmpty(self):
-		return size == 0
+		return self.data.count() == 0
 		
 def main():
 	example = PriorityQueue()
@@ -41,5 +42,5 @@ def main():
 	example.Insert(ins2)
 	example.Print()
 	
-if __name__ == "__main__":
-	main()
+#if __name__ == "__main__":
+#	main()
