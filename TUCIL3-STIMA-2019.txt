@@ -1,0 +1,8 @@
+A*
+Iterasi hingga mencapai pintu keluar
+	cek masing2 cabang dari sebuah simpul
+	masukkan cost yg sudah dihitung ke Priority Queue
+	akses ke elemen dengan top
+	
+	
+*Priority Queue merupakan daftar simpul hidup, diurut membesar berdasarkan cost
