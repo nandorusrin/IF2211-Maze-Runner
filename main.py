@@ -1,66 +1,16 @@
-from priorityQueueClass import PriorityQueue
-
-def ManhattanDist(X, Y, Xout, Yout):
-	return (abs(X - Xout) + abs(Y - Yout))
-
-#validasi apakah petak matriks tsb adalah path
-def IsXYValid(matriks, X, Y):
-	valid = False
-	if (X >= 0 and Y >= 0 and X < len(matriks[0]) and Y < len(matriks)):
-		valid = True
-	return valid
-
-def IsPathValid(matriks, visited, X, Y):
-	valid = False
-	if (IsXYValid(matriks, X, Y) and matriks[X][Y] == 0 and visited[X][Y] == True):
-		valid = True
-	return valid
-		
-	
-#input	:	matriks jalur
-#			jalur masuk dan keluar
-
-def astar(matrix, visited, Xi, Yi, Xf, Yf):
-	#asumsi entry dan out sudah benar
-	steppedCost = 0
-	queue = PriorityQueue()
-	tempList = [Xi, Yi, steppedCost + ManhattanDist(Xi, Yi, Xf, Yf)]
-	queue.Insert(tempList)
-
-	while (Xi != Xf and Yi != Yf):
-		#buang list sekarang
-		steppedCost = 2
-		queue.removeFirst()
-		#masukkan simpul tetangga ke queue
-		#MoveLeft
-		if (IsPathValid(matrix, visited, Xi - 1, Yi) == True):
-			tempList = [Xi - 1, Yi, steppedCost + ManhattanDist(Xi - 1, Yi, Xf, Yf)]
-			queue.Insert(tempList)
-
-
-
-
 def main():
 	#external readfile
 	matriks = open('testfile.txt').read()
 	matriks = [line.split() for line in matriks.split('\n')[:-1]]
 	for i in range(len(matriks)):
 		matriks[i] = list("".join(map(str,matriks[i])))
-	for i in range(len(matriks)):
-		print(matriks[i])
-
-	visited = matriks
-	for i in range (0, len(visited), 1):
-		for j in range (0, len(visited[0]), 1):
-			if (visited[i][j] == '0' and j < len(visited[0])-1):
-				visited[i][j] = '3'
-			elif (visited[i][j] == '0'):
-				visited[i][j] = '2'
+	for i in range (0, len(matriks), 1):
+		for j in range(0, len(matriks), 1):
+			matriks[i][j] = int(matriks[i][j])
+	for i in range (0, len(matriks), 1):
+		for j in range(0, len(matriks), 1):
+			print(matriks[i][j], end = " ")
+		print()
 	print()
-	for i in range(len(visited)):
-		print(visited[i])
-	print()
-	print(IsXYValid(matriks, -12, 0))
 	
 main()		
-input()
