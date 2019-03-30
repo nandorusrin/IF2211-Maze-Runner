@@ -108,6 +108,20 @@ def astar(matriks, visited, path, Ii, Ji, If, Jf):
 		else:
 			finished = True
 			#Periksa sisa elemen pada Queue yg F(N) < upperBound
+	Evaluate(path, If, Jf)
+
+def printPath(matriks, path):
+	for itr in range (0, len(path), 1):
+		matriks[path[itr][0]][path[itr][1]] = 7
+	for i in range (0, len(matriks), 1):
+		for j in range(0, len(matriks), 1):
+			if (matriks[i][j] == 1):
+				print("#", end = " ")
+			elif (matriks[i][j] == 7):
+				print("O", end = " ")
+			else:
+				print(" ", end = " ")
+		print()
 
 
 def main():
@@ -138,20 +152,7 @@ def main():
 
 	path = []
 	astar(matriks, visited, path, 1, 0, 9, 10)
-	print(path)
-	Evaluate(path, 9, 10)
-	print(path)
-	for itr in range (0, len(path), 1):
-		matriks[path[itr][0]][path[itr][1]] = 7
-	for i in range (0, len(matriks), 1):
-		for j in range(0, len(matriks), 1):
-			if (matriks[i][j] == 1):
-				print("#", end = " ")
-			elif (matriks[i][j] == 7):
-				print("O", end = " ")
-			else:
-				print(" ", end = " ")
-		print()
+	printPath(matriks, path)
 
 if __name__ == "__main__":
 	main()
