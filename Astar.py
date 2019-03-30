@@ -111,8 +111,10 @@ def astar(matriks, visited, path, Ii, Ji, If, Jf):
 	Evaluate(path, If, Jf)
 
 def printPath(matriks, path):
-	for itr in range (0, len(path), 1):
-		matriks[path[itr][0]][path[itr][1]] = 7
+	if (len(path) > 0):
+		for itr in range (0, len(path), 1):
+			matriks[path[itr][0]][path[itr][1]] = 7
+
 	for i in range (0, len(matriks), 1):
 		for j in range(0, len(matriks), 1):
 			if (matriks[i][j] == 1):
@@ -123,10 +125,14 @@ def printPath(matriks, path):
 				print(" ", end = " ")
 		print()
 
-
 def main():
+	matriks = []
+	path = []
+	visited = []
+	textFile = "testfile.txt"
+
 	#external readfile
-	matriks = open('testfile.txt').read()
+	matriks = open(textFile).read()
 	matriks = [line.split() for line in matriks.split('\n')[:-1]]
 	for i in range(len(matriks)):
 		matriks[i] = list("".join(map(str,matriks[i])))
@@ -136,21 +142,11 @@ def main():
 		for j in range(0, len(matriks), 1):
 			matriks[i][j] = int(matriks[i][j])
 
-	#CETAK
-	for i in range (0, len(matriks), 1):
-		for j in range(0, len(matriks), 1):
-			print(matriks[i][j], end = " ")
-		print()
-	print()
-
-	#VISITED
-	visited = []
 	for i in range (0, len(matriks), 1):
 		visited.append([])
 		for j in range(0, len(matriks), 1):
 			visited[i].append(0)
 
-	path = []
 	astar(matriks, visited, path, 1, 0, 9, 10)
 	printPath(matriks, path)
 
