@@ -147,7 +147,15 @@ def main():
 		for j in range(0, len(matriks), 1):
 			visited[i].append(0)
 
-	astar(matriks, visited, path, 1, 0, 9, 10)
+	print(matriks[10])
+	#Small
+	#astar(matriks, visited, path, 1, 0, 9, 10)
+	#Med
+	#astar(matriks, visited, path, 1, 0, 1, 20)
+	#Large
+	#astar(matriks, visited, path, 1, 0, 29, 30)
+	#XLarge
+	astar(matriks, visited, path, 11, 0, 27, 40)
 	printPath(matriks, path)
 
 if __name__ == "__main__":
