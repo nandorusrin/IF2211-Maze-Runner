@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+import sys
+
 def ManhattanDist(I, J, Iout, Jout):
 	return (abs(I - Iout) + abs(J - Jout))
 
@@ -108,7 +111,24 @@ def astar(matriks, visited, path, Ii, Ji, If, Jf):
 		else:
 			finished = True
 			#Periksa sisa elemen pada Queue yg F(N) < upperBound
-	Evaluate(path, If, Jf)
+
+def backtrack(visited, Ii, Ji, If, Jf, solution):
+	if (Ii == If and Ji == Jf):
+		solution[Ii][Ji] = 1
+		return True
+	if (visited[Ii][Ji] == 7 and solution[Ii][Ji] == 0):
+		solution[Ii][Ji] = 1
+
+		if (backtrack(visited, Ii + 1, Ji, If, Jf, solution)== True ):
+			return True
+		if (backtrack(visited, Ii - 1, Ji, If, Jf, solution) == True):
+			return True
+		if (backtrack(visited, Ii, Ji + 1, If, Jf, solution) == True):
+			return True
+		if (backtrack(visited, Ii, Ji - 1, If, Jf, solution) == True):
+			return True
+		solution[Ii][Ji] = 0
+		return False
 
 def printPath(matriks, path):
 	if (len(path) > 0):
@@ -118,9 +138,9 @@ def printPath(matriks, path):
 	for i in range (0, len(matriks), 1):
 		for j in range(0, len(matriks), 1):
 			if (matriks[i][j] == 1):
-				print("#", end = " ")
-			elif (matriks[i][j] == 7):
-				print("O", end = " ")
+				print(u'\u2588', end =u'\u2588')
+			elif (path[i][j] == 1):
+				print("o", end = " ")
 			else:
 				print(" ", end = " ")
 		print()
@@ -129,7 +149,7 @@ def main():
 	matriks = []
 	path = []
 	visited = []
-	textFile = "testfile.txt"
+	textFile = "testfileXL.txt"
 
 	#external readfile
 	matriks = open(textFile).read()
@@ -141,22 +161,21 @@ def main():
 	for i in range (0, len(matriks), 1):
 		for j in range(0, len(matriks), 1):
 			matriks[i][j] = int(matriks[i][j])
-
+	solution = []
 	for i in range (0, len(matriks), 1):
 		visited.append([])
+		solution.append([])
 		for j in range(0, len(matriks), 1):
+			solution[i].append(0)
 			visited[i].append(0)
 
-	print(matriks[10])
-	#Small
-	#astar(matriks, visited, path, 1, 0, 9, 10)
-	#Med
-	#astar(matriks, visited, path, 1, 0, 1, 20)
-	#Large
-	#astar(matriks, visited, path, 1, 0, 29, 30)
-	#XLarge
 	astar(matriks, visited, path, 11, 0, 27, 40)
-	printPath(matriks, path)
+	if (backtrack(visited, 11, 0, 27, 40, solution) == True):
+		printPath(matriks, solution)
+	else:
+		print("Solution doesn't exist")
+
+	#printPath(matriks, visited)
 
 if __name__ == "__main__":
 	main()
