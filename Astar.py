@@ -159,8 +159,11 @@ def main():
 		for j in range(0, len(matriks), 1):
 			solution[i].append(0)
 			visited[i].append(0)
+	printPath(matriks, solution, 1)
 
-	astar(matriks, visited, Iin, Jin, Iout, Jout)
+	#XL	11, 0, 27, 40
+	#L	
+	#astar(matriks, visited, Iin, Jin, Iout, Jout)
 	if (backtrack(visited, Iin, Jin, Iout, Jout, solution) == True):
 		print(step(solution, 1))
 		join(matriks, solution)
