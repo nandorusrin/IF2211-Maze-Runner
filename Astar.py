@@ -113,33 +113,22 @@ def astar(matriks, visited, path, Ii, Ji, If, Jf):
 			#Periksa sisa elemen pada Queue yg F(N) < upperBound
 
 def backtrack(visited, Ii, Ji, If, Jf, solution):
-	printSth(solution)
 	if (Ii == If and Ji == Jf):
 		solution[Ii][Ji] = 1
 		return True
 	if (visited[Ii][Ji] == 7 and solution[Ii][Ji] == 0):
 		solution[Ii][Ji] = 1
 
-		if (backtrack(visited, Ii + 1, Ji, If, Jf, solution)== True and solution[Ii + 1][Ji] == 0):
+		if (backtrack(visited, Ii + 1, Ji, If, Jf, solution)== True ):
 			return True
-		if (backtrack(visited, Ii - 1, Ji, If, Jf, solution) == True and solution[Ii - 1][Ji] == 0):
+		if (backtrack(visited, Ii - 1, Ji, If, Jf, solution) == True):
 			return True
-		if (backtrack(visited, Ii, Ji + 1, If, Jf, solution) == True and solution[Ii][Ji + 1] == 0):
+		if (backtrack(visited, Ii, Ji + 1, If, Jf, solution) == True):
 			return True
-		if (backtrack(visited, Ii, Ji - 1, If, Jf, solution) == True and solution[Ii][Ji - 1] == 0):
+		if (backtrack(visited, Ii, Ji - 1, If, Jf, solution) == True):
 			return True
 		solution[Ii][Ji] = 0
 		return False
-
-
-def printSth(L):
-	for i in range (0, len(L), 1):
-		for j in range (0, len(L), 1):
-			if (L[i][j] != 0):
-				print(L[i][j], end = " ")
-			else:
-				print(" ", end = " ")
-		print()
 
 def printPath(matriks, path):
 	if (len(path) > 0):
@@ -150,7 +139,7 @@ def printPath(matriks, path):
 		for j in range(0, len(matriks), 1):
 			if (matriks[i][j] == 1):
 				print(u'\u2588', end =u'\u2588')
-			elif (path[i][j] == 7):
+			elif (path[i][j] == 1):
 				print("o", end = " ")
 			else:
 				print(" ", end = " ")
@@ -181,10 +170,10 @@ def main():
 			visited[i].append(0)
 
 	astar(matriks, visited, path, 11, 0, 27, 40)
-	#printSth(visited)
-	printSth(visited)
-	backtrack(visited, 11, 0, 27, 40, solution)
-	#printSth(solution)
+	if (backtrack(visited, 11, 0, 27, 40, solution) == True):
+		printPath(matriks, solution)
+	else:
+		print("Solution doesn't exist")
 
 	#printPath(matriks, visited)
 
