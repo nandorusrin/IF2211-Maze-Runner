@@ -18,7 +18,7 @@ def Insert(ML, L):
 	i = 0
 	if (len(ML) > 0):
 		#pengecekan elemen indeks 0..N-2
-		while ((L[2] + L[3]) > (ML[i][2] + ML[i][3]) and i <len(ML)-1):
+		while ((L[2] + L[3]) >= (ML[i][2] + ML[i][3]) and i <len(ML)-1):
 			i = i + 1
 		#jika elemen terakhir < elemen yg mau disisip (N-1)
 		if ((L[2] + L[3]) > (ML[i][2] + ML[i][3])):
@@ -45,7 +45,6 @@ def astar(matriks, visited, Ii, Ji, If, Jf):
 	found = False
 	finished = False
 	while (finished == False):
-		printPath(matriks, visited, 7)
 		#time.sleep(0.1)
 		#masukkan simpul tetangga ke queue
 		if (upperBound > steppedCost and Count(queue) > 0):
@@ -159,19 +158,19 @@ def main():
 		for j in range(0, len(matriks), 1):
 			solution[i].append(0)
 			visited[i].append(0)
-	printPath(matriks, solution, 1)
-
+	
 	#XL	11, 0, 27, 40
 	#L	
 	astar(matriks, visited, Iin, Jin, Iout, Jout)
+	nodes = step(visited, 7)
 	if (backtrack(visited, Iin, Jin, Iout, Jout, solution) == True):
 		print(step(solution, 1))
+		print(nodes)
 		join(matriks, solution)
 		plt.matshow(matriks)
 		plt.show()
 	else:
 		print("Solution doesn't exist")
-	printPath(matriks, visited)
 
 if __name__ == "__main__":
 	main()

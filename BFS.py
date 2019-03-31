@@ -138,15 +138,15 @@ def main():
             visited[i].append(0)
 
     bfs(matriks, visited, path, Iin, Jin, Iout, Jout)
+    nodes = step(visited, 7)
     if (backtrack(visited, Iin, Jin, Iout, Jout, solution) == True):
         print(step(solution, 1))
+        print(nodes)
         join(matriks, solution)
         plt.matshow(matriks)
         plt.show()
     else:
         print("Solution doesn't exist")
-
-    printPath(matriks, visited)
 
 if __name__ == "__main__":
     main()
