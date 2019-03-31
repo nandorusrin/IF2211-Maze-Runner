@@ -44,32 +44,11 @@ def Push(path, L):
 	elif (path[t][0] != L[0] or path[t][1] != L[1]):
 		path.append(L)
 
-#untuk mencari path optimal
-def Evaluate(path, If, Jf):
-	#jika elemen terakhir path bukan GOAL, buang
-	#pengecekan dari GOAL ke AWAL
-	#Jika path[i] dengan path[i-1] berselisih petak != 1, tahan di i
-	#iterasi dari j = i-1 hingga 1, bandingkan j dengan i, jika selisih petak != 1
-	#buang path[j]
-	path.reverse()
-	i = 0
-	while (i < len(path)-1):
-		if (path[0][0] == If and path[0][1] == Jf and i < len(path)-1):
-			j = i
-			while (ManhattanDist(path[j][0], path[j][1], path[j+1][0], path[j+1][1]) > 1) and (j != len(path)):
-				path.remove(path[j+1])
-				j += 1
-			i += 1
-		else:
-			path.remove(path[0])
-	path.reverse()
-
-def astar(matriks, visited, path, Ii, Ji, If, Jf):
+def astar(matriks, visited, Ii, Ji, If, Jf):
 	#asumsi entrJ dan out sudah benar
 	steppedCost = 0
 	upperBound = len(matriks)**2
 	queue =[[Ii, Ji, steppedCost, ManhattanDist(Ii, Ji, If, Jf)]]
-	Push(path, [Ii, Ji])
 	found = False
 	finished = False
 	while (finished == False):
@@ -79,22 +58,18 @@ def astar(matriks, visited, path, Ii, Ji, If, Jf):
 			if (IsPathValid(matriks, visited, Ii, Ji - 1) == 1):
 				tempList = [Ii, Ji - 1, steppedCost, ManhattanDist(Ii, Ji - 1, If, Jf)]
 				Insert(queue, tempList)
-				Push(path, [Ii, Ji -1])
 			#MoveRight
 			if (IsPathValid(matriks, visited, Ii, Ji + 1) == 1):
 				tempList = [Ii, Ji + 1, steppedCost, ManhattanDist(Ii, Ji + 1, If, Jf)]
 				Insert(queue, tempList)
-				Push(path, [Ii, Ji+1])
 			#MoveDown
 			if (IsPathValid(matriks, visited, Ii + 1, Ji) == 1):
 				tempList = [Ii + 1, Ji, steppedCost, ManhattanDist(Ii + 1, Ji, If, Jf)]
 				Insert(queue, tempList)
-				Push(path, [Ii +1, Ji])
 			#MoveUp
 			if (IsPathValid(matriks, visited, Ii - 1, Ji) == 1):
 				tempList = [Ii - 1, Ji, steppedCost, ManhattanDist(Ii - 1, Ji, If, Jf)]
 				Insert(queue, tempList)
-				Push(path, [Ii -1, Ji])
 			#buang list sekarang
 			visited[Ii][Ji] = 7
 			steppedCost = (queue.pop(0))[2] + 1
@@ -130,16 +105,12 @@ def backtrack(visited, Ii, Ji, If, Jf, solution):
 		solution[Ii][Ji] = 0
 		return False
 
-def printPath(matriks, path):
-	if (len(path) > 0):
-		for itr in range (0, len(path), 1):
-			matriks[path[itr][0]][path[itr][1]] = 7
-
+def printPath(matriks, path, flag):
 	for i in range (0, len(matriks), 1):
 		for j in range(0, len(matriks), 1):
 			if (matriks[i][j] == 1):
 				print(u'\u2588', end =u'\u2588')
-			elif (path[i][j] == 1):
+			elif (path[i][j] == flag):
 				print("o", end = " ")
 			else:
 				print(" ", end = " ")
@@ -147,9 +118,8 @@ def printPath(matriks, path):
 
 def main():
 	matriks = []
-	path = []
 	visited = []
-	textFile = "testfileXL.txt"
+	textFile = "testfile.txt"
 
 	#external readfile
 	matriks = open(textFile).read()
@@ -169,12 +139,13 @@ def main():
 			solution[i].append(0)
 			visited[i].append(0)
 
-	astar(matriks, visited, path, 11, 0, 27, 40)
-	if (backtrack(visited, 11, 0, 27, 40, solution) == True):
-		printPath(matriks, solution)
+	#astar(matriks, visited, path, 11, 0, 27, 40)
+	astar(matriks, visited, 1, 0, 9, 10)
+	printPath(matriks, visited, 7)
+	if (backtrack(visited, 1, 0, 9, 10, solution) == True):
+		printPath(matriks, solution, 1)
 	else:
 		print("Solution doesn't exist")
-
 	#printPath(matriks, visited)
 
 if __name__ == "__main__":
