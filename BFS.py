@@ -72,7 +72,7 @@ def backtrack(visited, Ii, Ji, If, Jf, solution):
         solution[Ii][Ji] = 0
         return False
 
-def printPath(matriks, path):
+def printPath(matriks, path, flag):
     if (len(path) > 0):
         for itr in range (0, len(path), 1):
             matriks[path[itr][0]][path[itr][1]] = 7
@@ -81,17 +81,31 @@ def printPath(matriks, path):
         for j in range(0, len(matriks), 1):
             if (matriks[i][j] == 1):
                 print(u'\u2588', end =u'\u2588')
-            elif (path[i][j] == 1):
+            elif (path[i][j] == flag):
                 print("o", end = " ")
             else:
                 print(" ", end = " ")
         print()
 
+def step(solution, flag):
+    count = 0
+    for i in range(0, len(solution), 1):
+        for j in range(0, len(solution), 1):
+            if (solution[i][j] == flag):
+                count = count + 1
+    return count
+
+def join(matriks, solution):
+	for i in range(0, len(matriks), 1):
+		for j in range(0, len(matriks), 1):
+			if (solution[i][j] == 1):
+				matriks[i][j] = solution[i][j]
+
 def main():
     matriks = []
     path = []
     visited = []
-    textFile = "testfileXL.txt"
+    textFile = "testfileL.txt"
 
     #external readfile
     matriks = open(textFile).read()
@@ -111,11 +125,14 @@ def main():
             solution[i].append(0)
             visited[i].append(0)
 
-    bfs(matriks, visited, path, 11, 0, 27, 40)
-    
-    printPath(matriks,visited)
-    if (backtrack(visited, 11, 0, 27, 40, solution) == True):
-        printPath(matriks, solution)
+    bfs(matriks, visited, path, 1, 0, 29, 30)
+    #bfs(matriks, visited, path, 11, 0, 27, 40)
+    #printPath(matriks,visited, 7)
+    #print(step(visited))
+
+    if (backtrack(visited, 1, 0, 29, 30, solution) == True):
+        join(matriks, solution)
+        print(step(solution, 1))
     else:
         print("Solution doesn't exist")
 

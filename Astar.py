@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import sys
+import seaborn as sns
 
 def ManhattanDist(I, J, Iout, Jout):
 	return (abs(I - Iout) + abs(J - Jout))
@@ -116,10 +116,23 @@ def printPath(matriks, path, flag):
 				print(" ", end = " ")
 		print()
 
+def step(solution, flag):
+    count = 0
+    for i in range(0, len(solution), 1):
+        for j in range(0, len(solution), 1):
+            if (solution[i][j] == flag):
+                count = count + 1
+    return count
+def join(matriks, solution):
+	for i in range(0, len(matriks), 1):
+		for j in range(0, len(matriks), 1):
+			if (solution[i][j] == 1):
+				matriks[i][j] = solution[i][j]
+	
 def main():
 	matriks = []
 	visited = []
-	textFile = "testfile.txt"
+	textFile = "testfileL.txt"
 
 	#external readfile
 	matriks = open(textFile).read()
@@ -139,11 +152,11 @@ def main():
 			solution[i].append(0)
 			visited[i].append(0)
 
-	#astar(matriks, visited, path, 11, 0, 27, 40)
-	astar(matriks, visited, 1, 0, 9, 10)
-	printPath(matriks, visited, 7)
-	if (backtrack(visited, 1, 0, 9, 10, solution) == True):
-		printPath(matriks, solution, 1)
+	astar(matriks, visited, 1, 0, 29, 30)
+	#astar(matriks, visited, 11, 0, 27, 40)
+	if (backtrack(visited, 1, 0, 29, 30, solution) == True):
+		join(matriks, solution)
+		print(step(solution, 1))
 	else:
 		print("Solution doesn't exist")
 	#printPath(matriks, visited)
