@@ -147,7 +147,7 @@ def main():
     else:
         print("Solution doesn't exist")
 
-    #printPath(matriks, visited)
+    printPath(matriks, visited)
 
 if __name__ == "__main__":
     main()

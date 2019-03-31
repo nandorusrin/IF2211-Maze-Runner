@@ -46,7 +46,7 @@ def astar(matriks, visited, Ii, Ji, If, Jf):
 	finished = False
 	while (finished == False):
 		printPath(matriks, visited, 7)
-		time.sleep(0.1)
+		#time.sleep(0.1)
 		#masukkan simpul tetangga ke queue
 		if (upperBound > steppedCost and Count(queue) > 0):
 			#MoveLeft
@@ -168,7 +168,7 @@ def main():
 		plt.show()
 	else:
 		print("Solution doesn't exist")
-	#printPath(matriks, visited)
+	printPath(matriks, visited)
 
 if __name__ == "__main__":
 	main()
