@@ -18,7 +18,7 @@ def Insert(ML, L):
 	i = 0
 	if (len(ML) > 0):
 		#pengecekan elemen indeks 0..N-2
-		while ((L[2] + L[3]) > (ML[i][2] + ML[i][3]) and i <len(ML)-1):
+		while ((L[2] + L[3]) >= (ML[i][2] + ML[i][3]) and i <len(ML)-1):
 			i = i + 1
 		#jika elemen terakhir < elemen yg mau disisip (N-1)
 		if ((L[2] + L[3]) > (ML[i][2] + ML[i][3])):
