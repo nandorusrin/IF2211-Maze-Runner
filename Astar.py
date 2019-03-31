@@ -163,7 +163,7 @@ def main():
 
 	#XL	11, 0, 27, 40
 	#L	
-	#astar(matriks, visited, Iin, Jin, Iout, Jout)
+	astar(matriks, visited, Iin, Jin, Iout, Jout)
 	if (backtrack(visited, Iin, Jin, Iout, Jout, solution) == True):
 		print(step(solution, 1))
 		join(matriks, solution)

@@ -138,7 +138,6 @@ def main():
             visited[i].append(0)
 
     bfs(matriks, visited, path, Iin, Jin, Iout, Jout)
-    
     if (backtrack(visited, Iin, Jin, Iout, Jout, solution) == True):
         print(step(solution, 1))
         join(matriks, solution)
