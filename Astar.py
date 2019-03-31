@@ -126,15 +126,23 @@ def step(solution, flag):
 def join(matriks, solution):
 	for i in range(0, len(matriks), 1):
 		for j in range(0, len(matriks), 1):
+			matriks[i][j] += 3
 			if (solution[i][j] == 1):
-				matriks[i][j] = 2
+				matriks[i][j] = 7
+			
 	
 def main():
 	matriks = []
 	visited = []
-	textFile = "testfileL.txt"
+	textFile = input()
+
+	Iin, Jin = input().split(" ")
+	Iin, Jin = int(Iin), int(Jin)
+	Iout, Jout = input().split(" ")
+	Iout, Jout = int(Iout), int(Jout)
 
 	#external readfile
+	textFile += ".txt"
 	matriks = open(textFile).read()
 	matriks = [line.split() for line in matriks.split('\n')[:-1]]
 	for i in range(len(matriks)):
@@ -152,13 +160,12 @@ def main():
 			solution[i].append(0)
 			visited[i].append(0)
 
-	astar(matriks, visited, 1, 0, 29, 30)
-	#astar(matriks, visited, 11, 0, 27, 40)
-	if (backtrack(visited, 1, 0, 29, 30, solution) == True):
+	astar(matriks, visited, Iin, Jin, Iout, Jout)
+	if (backtrack(visited, Iin, Jin, Iout, Jout, solution) == True):
+		print(step(solution, 1))
 		join(matriks, solution)
 		plt.matshow(matriks)
 		plt.show()
-		print(step(solution, 1))
 	else:
 		print("Solution doesn't exist")
 	#printPath(matriks, visited)
