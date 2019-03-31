@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import seaborn as sns
+'exec(%matplotlib inline)'
 
 def ManhattanDist(I, J, Iout, Jout):
 	return (abs(I - Iout) + abs(J - Jout))
@@ -127,7 +127,7 @@ def join(matriks, solution):
 	for i in range(0, len(matriks), 1):
 		for j in range(0, len(matriks), 1):
 			if (solution[i][j] == 1):
-				matriks[i][j] = solution[i][j]
+				matriks[i][j] = 2
 	
 def main():
 	matriks = []
@@ -156,6 +156,8 @@ def main():
 	#astar(matriks, visited, 11, 0, 27, 40)
 	if (backtrack(visited, 1, 0, 29, 30, solution) == True):
 		join(matriks, solution)
+		plt.matshow(matriks)
+		plt.show()
 		print(step(solution, 1))
 	else:
 		print("Solution doesn't exist")
